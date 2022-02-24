@@ -7,6 +7,8 @@ namespace MovieCharactersAPI.Data
     public class MovieDbContext : DbContext
     {
         public DbSet<Character> Characters { get; set; }
+        public DbSet<Movie> Movies { get; set; }
+
         /// <summary>
         /// Gets the string required for the connection to the database
         /// </summary>
