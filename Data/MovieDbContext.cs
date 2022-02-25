@@ -8,6 +8,7 @@ namespace MovieCharactersAPI.Data
     {
         public DbSet<Character> Characters { get; set; }
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<Franchise> Franchises { get; set; }
 
         /// <summary>
         /// Gets the string required for the connection to the database
