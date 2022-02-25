@@ -31,5 +31,57 @@ namespace MovieCharactersAPI.Data
         {
             optionsBuilder.UseSqlServer(GetConnectionString());
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Franchise>().HasData(
+                new Franchise
+                {
+                    Id = 1,
+                    Name = "DC Comics",
+                    Description = "Traditional Superheroes"
+                },
+                new Franchise
+                {
+                    Id = 2,
+                    Name = "Unbreakable",
+                    Description = "Realistic Superheroes"
+                }
+            );
+            modelBuilder.Entity<Movie>().HasData(
+                new Movie
+                {
+                    Id = 1,
+                    Title = "The Dark Knight",
+                    Genre = "Action",
+                    ReleaseYear = 2008,
+                    Director = "Christopher Nolan",
+                    Picture = "",
+                    Trailer = "",
+                    FranchiseId = 1
+                },
+                new Movie
+                {
+                    Id = 2,
+                    Title = "The Dark Knight Rises",
+                    Genre = "Action",
+                    ReleaseYear = 2012,
+                    Director = "Christopher Nolan",
+                    Picture = "",
+                    Trailer = "",
+                    FranchiseId = 1
+                },
+                new Movie
+                {
+                    Id = 3,
+                    Title = "Split",
+                    Genre = "Thriller",
+                    ReleaseYear = 2016,
+                    Director = "M. Night Shyamalan",
+                    Picture = "",
+                    Trailer = "",
+                    FranchiseId = 2
+                }
+            );
+        }
     }
 }
