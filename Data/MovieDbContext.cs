@@ -82,6 +82,52 @@ namespace MovieCharactersAPI.Data
                     FranchiseId = 2
                 }
             );
+
+            modelBuilder.Entity<Character>().HasData(
+                new Character
+                {
+                    Id = 1,
+                    Name = "Bruce Wayne",
+                    Alias = "Batman",
+                    Gender = Gender.Male,
+                    Picture = "https://m.media-amazon.com/images/M/MV5BMTQyODI2MDczOF5BMl5BanBnXkFtZTcwNDczMTk2Mw@@._V1_FMjpg_UY720_.jpg"
+                },
+                new Character
+                {
+                    Id = 2,
+                    Name = "Unknown",
+                    Alias = "Joker",
+                    Gender = Gender.Male,
+                    Picture = "https://m.media-amazon.com/images/M/MV5BMjA5ODU3NTI0Ml5BMl5BanBnXkFtZTcwODczMTk2Mw@@._V1_FMjpg_UX1280_.jpg"
+                },
+                new Character
+                {
+                    Id = 3,
+                    Name = "Unknown",
+                    Alias = "Bane",
+                    Gender = Gender.Male,
+                    Picture = "https://m.media-amazon.com/images/M/MV5BMjE3MzMxMDAxNV5BMl5BanBnXkFtZTcwOTUyMzgwOA@@._V1_FMjpg_UY721_.jpg"
+                },
+                new Character
+                {
+                    Id = 4,
+                    Name = "Casey Cooke",
+                    Alias = "",
+                    Gender = Gender.Female,
+                    Picture = "https://m.media-amazon.com/images/M/MV5BMGMyYmQ2ZGYtMjFhMS00M2ZkLWE2NWYtMTRlZGExNzIzOTNiXkEyXkFqcGdeQXVyNjQ4ODE4MzQ@._V1_FMjpg_UX1280_.jpg"
+                }
+            );
+            modelBuilder
+                .Entity<Character>()
+                .HasMany(p => p.Movies)
+                .WithMany(p => p.Characters)
+                .UsingEntity(j => j.HasData(
+                    new { CharactersId = 1, MoviesId = 1 },
+                    new { CharactersId = 1, MoviesId = 2 },
+                    new { CharactersId = 2, MoviesId = 1 },
+                    new { CharactersId = 3, MoviesId = 2 },
+                    new { CharactersId = 4, MoviesId = 3 }
+            ));
         }
     }
 }
