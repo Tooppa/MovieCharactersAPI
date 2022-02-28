@@ -1,6 +1,13 @@
-﻿namespace MovieCharactersAPI.Services
+﻿using MovieCharactersAPI.Models;
+
+namespace MovieCharactersAPI.Services
 {
-    public class ICharacterService
+    public interface ICharacterService
     {
+        public Task<IEnumerable<Character>> GetAllCharactersAsync();
+        public Task<Character> GetSpecificCharacterAsync(int id);
+        public Task<Character> AddCharacterAsync(Character character);
+        public Task UpdateCharacterAsync(Character character);
+        public Task DeleteCharacterAsync(int id);
     }
 }
