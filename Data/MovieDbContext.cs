@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using MovieCharactersAPI.Models;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MovieCharactersAPI.Data
 {
@@ -9,6 +10,10 @@ namespace MovieCharactersAPI.Data
         public DbSet<Character> Characters { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Franchise> Franchises { get; set; }
+
+        public MovieDbContext([NotNullAttribute] DbContextOptions options) : base(options)
+        {
+        }
 
         /// <summary>
         /// Gets the string required for the connection to the database
