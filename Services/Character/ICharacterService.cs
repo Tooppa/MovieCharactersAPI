@@ -9,5 +9,6 @@ namespace MovieCharactersAPI.Services
         public Task<Character> AddCharacterAsync(Character character);
         public Task UpdateCharacterAsync(Character character);
         public Task DeleteCharacterAsync(int id);
+        public bool CharacterExists(int id);
     }
 }

@@ -20,6 +20,11 @@ namespace MovieCharactersAPI.Services
             return character;
         }
 
+        public bool CharacterExists(int id)
+        {
+            return _context.Characters.Any(e => e.Id == id);
+        }
+
         public async Task DeleteCharacterAsync(int id)
         {
             var character = await _context.Characters.FindAsync(id);
