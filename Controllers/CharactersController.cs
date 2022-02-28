@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,9 @@ namespace MovieCharactersAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Produces(MediaTypeNames.Application.Json)]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ApiConventionType(typeof(DefaultApiConventions))]
     public class CharactersController : ControllerBase
     {
         private readonly MovieDbContext _context;
@@ -22,7 +26,10 @@ namespace MovieCharactersAPI.Controllers
             _context = context;
         }
 
-        // GET: api/Characters
+        /// <summary>
+        /// Gets all the characters in the database.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Character>>> GetCharacters()
         {
