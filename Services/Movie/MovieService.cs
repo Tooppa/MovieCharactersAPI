@@ -49,5 +49,25 @@ namespace MovieCharactersAPI.Services
             _context.Entry(movie).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
+
+        public async Task UpdateMovieCharactersAsync(int movieId, List<int> newCharacters)
+        {
+            Movie movieToUpdateCharacters = await _context.Movies
+                .Include(m => m.Characters)
+                .Where(m => m.Id == movieId)
+                .FirstAsync();
+
+            List<Character> characters = new();
+            foreach (int charId in newCharacters)
+            {
+                Character character = await _context.Characters.FindAsync(charId);
+                if (character == null)
+                    throw new KeyNotFoundException();
+                characters.Add(character);
+            }
+            movieToUpdateCharacters.Characters = characters;
+            await _context.SaveChangesAsync();
+
+        }
     }
 }
