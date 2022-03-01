@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MovieCharactersAPI.Models.Domain
+namespace MovieCharactersAPI.Models
 {
     public enum Gender
     {

@@ -1,5 +1,4 @@
-﻿using MovieCharactersAPI.Models.Domain;
-
+﻿
 namespace MovieCharactersAPI.Models.DTO.Movie
 {
     public class MovieReadDTO

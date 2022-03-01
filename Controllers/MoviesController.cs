@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieCharactersAPI.Data;
-using MovieCharactersAPI.Models.Domain;
+using MovieCharactersAPI.Models;
 
 namespace MovieCharactersAPI.Controllers
 {

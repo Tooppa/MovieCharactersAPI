@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieCharactersAPI.Data;
 using MovieCharactersAPI.Models;
-using MovieCharactersAPI.Models.Domain;
 using MovieCharactersAPI.Models.DTO.Character;
 using MovieCharactersAPI.Services;
 
