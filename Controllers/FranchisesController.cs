@@ -55,16 +55,6 @@ namespace MovieCharactersAPI.Controllers
             return _mapper.Map<FranchiseReadDTO>(franchise);
         }
 
-        /// <summary>
-        /// Gets all the movies in the database with given franchise id.
-        /// </summary>
-        /// <param name="id">id of the franchise</param>
-        /// <returns></returns>
-        [HttpGet("{id}/movies")]
-        public async Task<ActionResult<IEnumerable<MovieReadDTO>>> GetMoviesByFranchiseId(int id)
-        {
-            return _mapper.Map<List<MovieReadDTO>>(await _franchiseService.GetAllMoviesInFranchiseAsync(id));
-        }
 
         /// <summary>
         /// Updates a specific franchise.
@@ -125,5 +115,42 @@ namespace MovieCharactersAPI.Controllers
             return NoContent();
         }
         #endregion
+
+        /// <summary>
+        /// Gets all the movies in the database with given franchise id.
+        /// </summary>
+        /// <param name="id">id of the franchise</param>
+        /// <returns></returns>
+        [HttpGet("{id}/movies")]
+        public async Task<ActionResult<IEnumerable<MovieReadDTO>>> GetMoviesByFranchiseId(int id)
+        {
+            return _mapper.Map<List<MovieReadDTO>>(await _franchiseService.GetAllMoviesInFranchiseAsync(id));
+        }
+
+        /// <summary>
+        /// Updates the movies of a specified franchise.
+        /// </summary>
+        /// <param name="id">Id of the franchise for which the movies are to be updated</param>
+        /// <param name="newmovies">List of movies ids that overwrite the old movies</param>
+        /// <returns></returns>
+        [HttpPut("{id}/movies")]
+        public async Task<IActionResult> UpdateFranchiseMovies(int id, List<int> newmovies)
+        {
+            if (!_franchiseService.FranchiseExists(id))
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                await _franchiseService.UpdateMoviesInFranchiseAsync(id, newmovies);
+            }
+            catch (KeyNotFoundException)
+            {
+                return BadRequest("Invalid movie id.");
+            }
+
+            return NoContent();
+        }
     }
 }
