@@ -112,5 +112,32 @@ namespace MovieCharactersAPI.Controllers
             return NoContent();
         }
         #endregion
+
+        /// <summary>
+        /// Updates the characters of a specified movie.
+        /// </summary>
+        /// <param name="id">Id of the movie for which the characters are to be updated</param>
+        /// <param name="newCharacters">List of character ids that overwrite the old characters</param>
+        /// <returns></returns>
+        [HttpPut("{id}/characters")]
+        public async Task<IActionResult> UpdateMovieChatacters(int id, List<int> newCharacters)
+        {
+            if (!_movieService.MovieExists(id))
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                await _movieService.UpdateMovieCharactersAsync(id, newCharacters);
+            }
+            catch (KeyNotFoundException)
+            {
+                return BadRequest("Invalid character id.");
+            }
+
+            return NoContent();
+        }
+
     }
 }

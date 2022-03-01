@@ -9,6 +9,7 @@ namespace MovieCharactersAPI.Services
         public Task<Movie> AddMovieAsync(Movie movie);
         public Task UpdateMovieAsync(Movie movie);
         public Task DeleteMovieAsync(int id);
+        public Task UpdateMovieCharactersAsync(int movieId, List<int> newCharacters);
         public bool MovieExists(int id);
     }
 }
