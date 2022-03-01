@@ -5,6 +5,7 @@ namespace MovieCharactersAPI.Services
     public interface IMovieService
     { 
         public Task<IEnumerable<Movie>> GetAllMoviesAsync();
+        public Task<IEnumerable<Movie>> GetAllMoviesInFranchiseAsync(int id);
         public Task<Movie> GetSpecificMovieAsync(int id);
         public Task<Movie> AddMovieAsync(Movie movie);
         public Task UpdateMovieAsync(Movie movie);
