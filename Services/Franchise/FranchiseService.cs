@@ -51,5 +51,25 @@ namespace MovieCharactersAPI.Services
             _context.Entry(franchise).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
+
+        public async Task UpdateMoviesInFranchiseAsync(int franchiseId, List<int> newMovies)
+        {
+            Franchise franchiseToUpdateMovies = await _context.Franchises
+                .Include(m => m.Movies)
+                .Where(m => m.Id == franchiseId)
+                .FirstAsync();
+
+            List<Movie> movies = new();
+            foreach (int movieId in newMovies)
+            {
+                Movie movie = await _context.Movies.FindAsync(movieId);
+                if (movie == null)
+                    throw new KeyNotFoundException();
+                movies.Add(movie);
+            }
+            franchiseToUpdateMovies.Movies = movies;
+            await _context.SaveChangesAsync();
+
+        }
     }
 }
