@@ -9,5 +9,6 @@ namespace MovieCharactersAPI.Models.DTO.Franchise
         public string Name { get; set; }
         [MaxLength(100, ErrorMessage = "Description can't be longer than 100 characters.")]
         public string Description { get; set; }
+        public List<int> Movies { get; set; }
     }
 }
