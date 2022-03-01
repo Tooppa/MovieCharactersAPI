@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "WebApplication2": {
+    "MovieCharactersAPI": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
