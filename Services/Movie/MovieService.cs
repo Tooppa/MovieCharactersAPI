@@ -30,12 +30,12 @@ namespace MovieCharactersAPI.Services
 
         public async Task<IEnumerable<Movie>> GetAllMoviesAsync()
         {
-            return await _context.Movies.ToListAsync();
+            return await _context.Movies.Include(f => f.Characters).ToListAsync();
         }
 
         public async Task<Movie> GetSpecificMovieAsync(int id)
         {
-            return await _context.Movies.FindAsync(id);
+            return await _context.Movies.Include(f => f.Characters).FirstOrDefaultAsync(f => f.Id == id);
         }
 
         public bool MovieExists(int id)
