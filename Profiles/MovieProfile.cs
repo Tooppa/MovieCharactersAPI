@@ -9,7 +9,12 @@ namespace MovieCharactersAPI.Profiles
         public MovieProfile()
         {
             // Movie<->MovieReadDTO
-            CreateMap<Movie, MovieReadDTO>().ReverseMap();
+            CreateMap<Movie, MovieReadDTO>()
+                // turn related movies into a list of ints
+                .ForMember(fdto => fdto.Characters, opt => opt
+                .MapFrom(f => f.Characters.Select(f => f.Id).ToList()))
+                .ReverseMap();
+
             // Movie<->MovieCreateDTO
             CreateMap<Movie, MovieCreateDTO>().ReverseMap();
             // Movie<->MovieEditDTO
