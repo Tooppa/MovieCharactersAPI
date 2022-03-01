@@ -60,8 +60,8 @@ namespace MovieCharactersAPI.Data
                     Genre = "Action",
                     ReleaseYear = 2008,
                     Director = "Christopher Nolan",
-                    Picture = "",
-                    Trailer = "",
+                    Picture = "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg",
+                    Trailer = "https://www.youtube.com/watch?v=EXeTwQWrcwY",
                     FranchiseId = 1
                 },
                 new Movie
@@ -71,8 +71,8 @@ namespace MovieCharactersAPI.Data
                     Genre = "Action",
                     ReleaseYear = 2012,
                     Director = "Christopher Nolan",
-                    Picture = "",
-                    Trailer = "",
+                    Picture = "https://upload.wikimedia.org/wikipedia/fi/a/ab/The_dark_knight_rises.jpg",
+                    Trailer = "https://www.youtube.com/watch?v=g8evyE9TuYk",
                     FranchiseId = 1
                 },
                 new Movie
@@ -82,8 +82,8 @@ namespace MovieCharactersAPI.Data
                     Genre = "Thriller",
                     ReleaseYear = 2016,
                     Director = "M. Night Shyamalan",
-                    Picture = "",
-                    Trailer = "",
+                    Picture = "https://www.episodi.fi/wp-content/uploads/Split.jpg",
+                    Trailer = "https://www.youtube.com/watch?v=84TouqfIsiI",
                     FranchiseId = 2
                 }
             );
