@@ -4,6 +4,7 @@ using MovieCharactersAPI.Data;
 using System.Configuration;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using MovieCharactersAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddDbContext<MovieDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddScoped(typeof(ICharacterService), typeof(CharacterService));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
