@@ -15,9 +15,9 @@ namespace MovieCharactersAPI.Profiles
                 .MapFrom(f => f.Movies.Select(f => f.Id).ToList()))
                 .ReverseMap();
             // Franchise<->FranchiseCreateDTO
-            CreateMap<Character, FranchiseCreateDTO>().ReverseMap();
+            CreateMap<Franchise, FranchiseCreateDTO>().ReverseMap();
             // Franchise<->FranchiseEditDTO
-            CreateMap<Character, FranchiseEditDTO>().ReverseMap();
+            CreateMap<Franchise, FranchiseEditDTO>().ReverseMap();
         }
     }
 }
