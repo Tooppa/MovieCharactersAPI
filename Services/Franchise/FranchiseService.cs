@@ -34,12 +34,12 @@ namespace MovieCharactersAPI.Services
 
         public async Task<IEnumerable<Franchise>> GetAllFranchisesAsync()
         {
-            return await _context.Franchises.ToListAsync();
+            return await _context.Franchises.Include(f => f.Movies).ToListAsync();
         }
 
         public async Task<Franchise> GetSpecificFranchiseAsync(int id)
         {
-            return await _context.Franchises.FindAsync(id);
+            return await _context.Franchises.Include(f => f.Movies).FirstOrDefaultAsync(f => f.Id == id);
         }
 
         public async Task UpdateFranchiseAsync(Franchise franchise)
