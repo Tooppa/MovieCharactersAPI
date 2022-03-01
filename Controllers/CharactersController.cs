@@ -4,114 +4,121 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieCharactersAPI.Data;
 using MovieCharactersAPI.Models;
 using MovieCharactersAPI.Models.Domain;
+using MovieCharactersAPI.Models.DTO.Character;
+using MovieCharactersAPI.Services;
 
 namespace MovieCharactersAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/characters")]
     [ApiController]
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
     [ApiConventionType(typeof(DefaultApiConventions))]
     public class CharactersController : ControllerBase
     {
-        private readonly MovieDbContext _context;
+        private readonly IMapper _mapper;
+        private readonly ICharacterService _characterService;
 
-        public CharactersController(MovieDbContext context)
+        public CharactersController(IMapper mapper, ICharacterService characterService)
         {
-            _context = context;
+            _mapper = mapper;
+            _characterService = characterService;
         }
 
+        #region CRUD
         /// <summary>
         /// Gets all the characters in the database.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Character>>> GetCharacters()
+        public async Task<ActionResult<IEnumerable<CharacterReadDTO>>> GetCharacters()
         {
-            return await _context.Characters.ToListAsync();
+            return _mapper.Map<List<CharacterReadDTO>>(await _characterService.GetAllCharactersAsync());
         }
 
-        // GET: api/Characters/5
+        /// <summary>
+        /// Gets a specific character by their id.
+        /// </summary>
+        /// <param name="id">Id of the character</param>
+        /// <returns></returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<Character>> GetCharacter(int id)
+        public async Task<ActionResult<CharacterReadDTO>> GetCharacter(int id)
         {
-            var character = await _context.Characters.FindAsync(id);
+            Character character = await _characterService.GetSpecificCharacterAsync(id);
 
             if (character == null)
             {
                 return NotFound();
             }
 
-            return character;
+            return _mapper.Map<CharacterReadDTO>(character);
         }
 
-        // PUT: api/Characters/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Updates a specific character.
+        /// </summary>
+        /// <param name="id">Id of the character to be updated</param>
+        /// <param name="character">Modified character object that will replace the the original</param>
+        /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCharacter(int id, Character character)
+        public async Task<IActionResult> PutCharacter(int id, CharacterEditDTO dtoCharacter)
         {
-            if (id != character.Id)
+            if (id != dtoCharacter.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(character).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CharacterExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Characters
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Character>> PostCharacter(Character character)
-        {
-            _context.Characters.Add(character);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCharacter", new { id = character.Id }, character);
-        }
-
-        // DELETE: api/Characters/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCharacter(int id)
-        {
-            var character = await _context.Characters.FindAsync(id);
-            if (character == null)
+            if (!_characterService.CharacterExists(id))
             {
                 return NotFound();
             }
 
-            _context.Characters.Remove(character);
-            await _context.SaveChangesAsync();
+            Character domainCharacter = _mapper.Map<Character>(dtoCharacter);
+            await _characterService.UpdateCharacterAsync(domainCharacter);
 
             return NoContent();
         }
 
-        private bool CharacterExists(int id)
+        /// <summary>
+        /// Add a new character to the database.
+        /// </summary>
+        /// <param name="character">Character object to be added</param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<ActionResult<Character>> PostCharacter(CharacterCreateDTO dtoCharacter)
         {
-            return _context.Characters.Any(e => e.Id == id);
+            Character domainCharacter = _mapper.Map<Character>(dtoCharacter);
+            domainCharacter = await _characterService.AddCharacterAsync(domainCharacter);
+
+            return CreatedAtAction("GetCharacter",
+                new { id = domainCharacter.Id },
+                _mapper.Map<CharacterReadDTO>(domainCharacter));
         }
+
+        /// <summary>
+        /// Deletes a character from the database.
+        /// </summary>
+        /// <param name="id">Id of the character to be deleted</param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCharacter(int id)
+        {
+            if (!_characterService.CharacterExists(id))
+            {
+                return NotFound();
+            }
+
+            await _characterService.DeleteCharacterAsync(id);
+
+            return NoContent();
+        }
+        #endregion
     }
 }
