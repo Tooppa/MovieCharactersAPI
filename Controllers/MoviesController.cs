@@ -2,6 +2,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MovieCharactersAPI.Models.Domain;
+using MovieCharactersAPI.Models.DTO.Character;
 using MovieCharactersAPI.Models.DTO.Movie;
 using MovieCharactersAPI.Services;
 using System.Net.Mime;
@@ -115,8 +116,10 @@ namespace MovieCharactersAPI.Controllers
         }
         #endregion
 
+        #region Other endpoints
+
         /// <summary>
-        /// Updates the characters of a specified movie.
+        /// Updates the characters of a given movie.
         /// </summary>
         /// <param name="id">Id of the movie for which the characters are to be updated</param>
         /// <param name="newCharacters">List of character ids that overwrite the old characters</param>
@@ -141,5 +144,17 @@ namespace MovieCharactersAPI.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Gets all the characters in a given movie.
+        /// </summary>
+        /// <param name="id">Id of the movie</param>
+        /// <returns></returns>
+        [HttpGet("{id}/characters")]
+        public async Task<ActionResult<IEnumerable<CharacterReadDTO>>> GetCharactersByMovieId(int id)
+        {
+            return _mapper.Map<List<CharacterReadDTO>>(await _movieService.GetAllCharactersInMovieAsync(id));
+        }
+
+        #endregion
     }
 }
