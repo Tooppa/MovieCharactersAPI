@@ -1,6 +1,14 @@
-﻿namespace MovieCharactersAPI.Services.Movie
+﻿using MovieCharactersAPI.Models;
+
+namespace MovieCharactersAPI.Services
 {
-    public class IMovieService
-    {
+    public interface IMovieService
+    { 
+        public Task<IEnumerable<Movie>> GetAllMoviesAsync();
+        public Task<Movie> GetSpecificMovieAsync(int id);
+        public Task<Movie> AddMovieAsync(Movie movie);
+        public Task UpdateMovieAsync(Movie movie);
+        public Task DeleteMovieAsync(int id);
+        public bool MovieExists(int id);
     }
 }
