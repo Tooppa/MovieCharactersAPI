@@ -5,6 +5,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MovieCharactersAPI.Models.Domain;
 using MovieCharactersAPI.Models.DTO.Franchise;
+using MovieCharactersAPI.Models.DTO.Movie;
 using MovieCharactersAPI.Services;
 
 namespace MovieCharactersAPI.Controllers
@@ -52,6 +53,17 @@ namespace MovieCharactersAPI.Controllers
             }
 
             return _mapper.Map<FranchiseReadDTO>(franchise);
+        }
+
+        /// <summary>
+        /// Gets all the movies in the database with given franchise id.
+        /// </summary>
+        /// <param name="id">id of the franchise</param>
+        /// <returns></returns>
+        [HttpGet("{id}/movies")]
+        public async Task<ActionResult<IEnumerable<MovieReadDTO>>> GetMoviesByFranchiseId(int id)
+        {
+            return _mapper.Map<List<MovieReadDTO>>(await _franchiseService.GetAllMoviesInFranchiseAsync(id));
         }
 
         /// <summary>

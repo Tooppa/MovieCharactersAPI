@@ -19,6 +19,10 @@ namespace MovieCharactersAPI.Services
             await _context.SaveChangesAsync();
             return franchise;
         }
+        public async Task<IEnumerable<Movie>> GetAllMoviesInFranchiseAsync(int id)
+        {
+            return await _context.Movies.Include(f => f.Characters).Where(m => m.FranchiseId == id).ToListAsync();
+        }
 
         public async Task DeleteFranchiseAsync(int id)
         {

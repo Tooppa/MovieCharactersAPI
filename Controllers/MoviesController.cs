@@ -36,6 +36,7 @@ namespace MovieCharactersAPI.Controllers
             return _mapper.Map<List<MovieReadDTO>>(await _movieService.GetAllMoviesAsync());
         }
 
+
         /// <summary>
         /// Gets a specific movie by their id.
         /// </summary>
@@ -53,6 +54,7 @@ namespace MovieCharactersAPI.Controllers
 
             return _mapper.Map<MovieReadDTO>(movie);
         }
+
 
         /// <summary>
         /// Updates a specific movie.
