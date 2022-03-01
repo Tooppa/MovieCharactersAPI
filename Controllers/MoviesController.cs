@@ -1,9 +1,7 @@
 ﻿#nullable disable
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using MovieCharactersAPI.Data;
-using MovieCharactersAPI.Models;
+using MovieCharactersAPI.Models.Domain;
 using MovieCharactersAPI.Models.DTO.Movie;
 using MovieCharactersAPI.Services;
 using System.Net.Mime;

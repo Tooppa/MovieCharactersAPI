@@ -1,6 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using MovieCharactersAPI.Models;
+using MovieCharactersAPI.Models.Domain;
 using System.Diagnostics.CodeAnalysis;
 
 namespace MovieCharactersAPI.Data
