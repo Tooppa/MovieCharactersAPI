@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MovieCharactersAPI.Models.Domain;
+using System.ComponentModel.DataAnnotations;
 
 namespace MovieCharactersAPI.Models.DTO.Character
 {

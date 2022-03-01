@@ -1,4 +1,4 @@
-﻿using MovieCharactersAPI.Models;
+﻿using MovieCharactersAPI.Models.Domain;
 
 namespace MovieCharactersAPI.Services
 {
