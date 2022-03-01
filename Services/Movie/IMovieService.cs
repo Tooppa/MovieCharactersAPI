@@ -6,8 +6,8 @@ namespace MovieCharactersAPI.Services
     { 
         public Task<IEnumerable<Movie>> GetAllMoviesAsync();
         public Task<Movie> GetSpecificMovieAsync(int id);
-        public Task<Movie> AddMovieAsync(Movie character);
-        public Task UpdateMovieAsync(Movie character);
+        public Task<Movie> AddMovieAsync(Movie movie);
+        public Task UpdateMovieAsync(Movie movie);
         public Task DeleteMovieAsync(int id);
         public bool MovieExists(int id);
     }
