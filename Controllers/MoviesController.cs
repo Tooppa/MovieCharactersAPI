@@ -36,16 +36,6 @@ namespace MovieCharactersAPI.Controllers
             return _mapper.Map<List<MovieReadDTO>>(await _movieService.GetAllMoviesAsync());
         }
 
-        /// <summary>
-        /// Gets all the movies in the database with given franchise id.
-        /// </summary>
-        /// <param name="id">id of the franchise</param>
-        /// <returns></returns>
-        [HttpGet("{id}/franchises")]
-        public async Task<ActionResult<IEnumerable<MovieReadDTO>>> GetMoviesByFranchiseId(int id)
-        {
-            return _mapper.Map<List<MovieReadDTO>>(await _movieService.GetAllMoviesInFranchiseAsync(id));
-        }
 
         /// <summary>
         /// Gets a specific movie by their id.

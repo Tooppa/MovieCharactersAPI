@@ -34,10 +34,6 @@ namespace MovieCharactersAPI.Services
             return await _context.Movies.Include(f => f.Characters).ToListAsync();
         }
 
-        public async Task<IEnumerable<Movie>> GetAllMoviesInFranchiseAsync(int id)
-        {
-            return await _context.Movies.Include(f => f.Characters).Where(m => m.FranchiseId == id).ToListAsync();
-        }
 
         public async Task<Movie> GetSpecificMovieAsync(int id)
         {
