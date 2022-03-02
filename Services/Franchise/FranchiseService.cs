@@ -26,7 +26,11 @@ namespace MovieCharactersAPI.Services
 
         public async Task DeleteFranchiseAsync(int id)
         {
-            var franchise = await _context.Franchises.FindAsync(id);
+            var franchise = await _context.Franchises.Include(f => f.Movies).FirstOrDefaultAsync(f => f.Id == id);
+            foreach (var movie in franchise.Movies)
+            {
+                movie.Franchise = null;
+            }
             _context.Franchises.Remove(franchise);
             await _context.SaveChangesAsync();
         }
