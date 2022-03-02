@@ -6,6 +6,7 @@ namespace MovieCharactersAPI.Services
     {
         public Task<IEnumerable<Franchise>> GetAllFranchisesAsync();
         public Task<IEnumerable<Movie>> GetAllMoviesInFranchiseAsync(int id);
+        public Task<IEnumerable<Character>> GetAllCharactersInFranchiseAsync(int id);
         public Task<Franchise> GetSpecificFranchiseAsync(int id);
         public Task<Franchise> AddFranchiseAsync(Franchise franchise);
         public Task UpdateFranchiseAsync(Franchise franchise);
