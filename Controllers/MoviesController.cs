@@ -167,6 +167,10 @@ namespace MovieCharactersAPI.Controllers
         [HttpGet("{id}/characters")]
         public async Task<ActionResult<IEnumerable<CharacterReadDTO>>> GetCharactersByMovieId(int id)
         {
+            if (!_movieService.MovieExists(id))
+            {
+                return NotFound();
+            }
             return _mapper.Map<List<CharacterReadDTO>>(await _movieService.GetAllCharactersInMovieAsync(id));
         }
 
