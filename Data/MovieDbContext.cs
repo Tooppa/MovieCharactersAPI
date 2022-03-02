@@ -14,27 +14,13 @@ namespace MovieCharactersAPI.Data
         public MovieDbContext([NotNullAttribute] DbContextOptions options) : base(options)
         {
         }
-
-        /// <summary>
-        /// Gets the string required for the connection to the database
-        /// </summary>
-        /// <returns>
-        /// String from SqlConnectionStringBuilder with right information
-        /// </returns>
-        private static string GetConnectionString()
-        {
-            SqlConnectionStringBuilder sqlConnectionStringBuilder = new SqlConnectionStringBuilder();
-            // search local machine for SQL Express Server instance
-            sqlConnectionStringBuilder.DataSource = ".\\SQLEXPRESS";
-            sqlConnectionStringBuilder.InitialCatalog = "MovieCharacters";
-            sqlConnectionStringBuilder.IntegratedSecurity = true;
-            // otherwise connection fails due to untrusted SSL certificate chain
-            sqlConnectionStringBuilder.TrustServerCertificate = true;
-            return sqlConnectionStringBuilder.ConnectionString;
-        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(GetConnectionString());
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            .AddJsonFile("appsettings.json")
+            .Build();
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
