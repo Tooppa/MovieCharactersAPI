@@ -11,8 +11,8 @@ namespace MovieCharactersAPI.Profiles
             // Movie<->MovieReadDTO
             CreateMap<Movie, MovieReadDTO>()
                 // turn related movies into a list of ints
-                .ForMember(fdto => fdto.Characters, opt => opt
-                .MapFrom(f => f.Characters.Select(f => f.Id).ToList()))
+                .ForMember(mdto => mdto.Characters, opt => opt
+                .MapFrom(m => m.Characters.Select(c => c.Id).ToList()))
                 .ReverseMap();
 
             // Movie<->MovieCreateDTO
