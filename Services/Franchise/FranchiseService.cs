@@ -74,7 +74,13 @@ namespace MovieCharactersAPI.Services
 
         public async Task<IEnumerable<Character>> GetAllCharactersInFranchiseAsync(int id)
         {
-            return await _context.Movies.Include(f => f.Characters).Where(m => m.FranchiseId == id).Select(m => m.Characters).ToListAsync();
+            List<Movie> movies = await _context.Movies.Include(f => f.Characters).Where(m => m.FranchiseId == id).ToListAsync();
+            List<Character> characters = new List<Character>();
+            foreach (Movie movie in movies)
+            {
+                characters.AddRange(movie.Characters);
+            }
+            return characters.Distinct();
         }
     }
 }
