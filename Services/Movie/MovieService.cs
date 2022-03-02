@@ -16,6 +16,12 @@ namespace MovieCharactersAPI.Services
 
         public async Task<Movie> AddMovieAsync(Movie movie)
         {
+            if (movie.FranchiseId != null)
+            {
+                Franchise franchise = await _context.Franchises.FindAsync(movie.FranchiseId);
+                if (franchise == null)
+                    throw new KeyNotFoundException();
+            }
             _context.Movies.Add(movie);
             await _context.SaveChangesAsync();
 
@@ -53,6 +59,13 @@ namespace MovieCharactersAPI.Services
 
         public async Task UpdateMovieAsync(Movie movie)
         {
+            if(movie.FranchiseId != null)
+            {
+                Franchise franchise = await _context.Franchises.FindAsync(movie.FranchiseId);
+                if (franchise == null)
+                    throw new KeyNotFoundException();
+            }
+            
             _context.Entry(movie).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }

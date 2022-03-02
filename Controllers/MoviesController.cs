@@ -19,7 +19,6 @@ namespace MovieCharactersAPI.Controllers
         private readonly IMapper _mapper;
         private readonly IMovieService _movieService;
 
-
         public MoviesController(IMapper mapper, IMovieService movieService)
         {
             _mapper = mapper;
@@ -77,7 +76,15 @@ namespace MovieCharactersAPI.Controllers
             }
 
             Movie domainMovie = _mapper.Map<Movie>(dtoMovie);
-            await _movieService.UpdateMovieAsync(domainMovie);
+
+            try
+            {
+                await _movieService.UpdateMovieAsync(domainMovie);
+            }
+            catch (KeyNotFoundException)
+            {
+                return BadRequest("Invalid franchise id.");
+            }
 
             return NoContent();
         }
@@ -90,7 +97,15 @@ namespace MovieCharactersAPI.Controllers
         public async Task<ActionResult<Movie>> PostMovie(MovieCreateDTO dtoMovie)
         {
             Movie domainMovie = _mapper.Map<Movie>(dtoMovie);
-            domainMovie = await _movieService.AddMovieAsync(domainMovie);
+
+            try
+            {
+                domainMovie = await _movieService.AddMovieAsync(domainMovie);
+            }
+            catch (KeyNotFoundException)
+            {
+                return BadRequest("Invalid franchise id.");
+            }
 
             return CreatedAtAction("GetMovie",
                 new { id = domainMovie.Id },
