@@ -154,7 +154,7 @@ namespace MovieCharactersAPI.Controllers
             return NoContent();
         }
         /// <summary>
-        /// Gets all the movies in the database with given franchise id.
+        /// Gets all the character in the database with given franchise id.
         /// </summary>
         /// <param name="id">id of the franchise</param>
         /// <returns></returns>
