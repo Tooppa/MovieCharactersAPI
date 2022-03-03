@@ -12,7 +12,7 @@ namespace MovieCharactersAPI.Profiles
             CreateMap<Franchise, FranchiseReadDTO>()
                 // turn related movies into a list of ints
                 .ForMember(fdto => fdto.Movies, opt => opt
-                .MapFrom(f => f.Movies.Select(f => f.Id).ToList()))
+                .MapFrom(f => f.Movies.Select(m => m.Id).ToList()))
                 .ReverseMap();
             // Franchise<->FranchiseCreateDTO
             CreateMap<Franchise, FranchiseCreateDTO>().ReverseMap();

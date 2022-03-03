@@ -22,7 +22,7 @@ namespace MovieCharactersAPI.Services
 
         public bool CharacterExists(int id)
         {
-            return _context.Characters.Any(e => e.Id == id);
+            return _context.Characters.Any(c => c.Id == id);
         }
 
         public async Task DeleteCharacterAsync(int id)

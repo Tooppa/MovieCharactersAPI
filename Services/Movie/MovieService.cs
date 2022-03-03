@@ -43,18 +43,18 @@ namespace MovieCharactersAPI.Services
 
         public async Task<IEnumerable<Movie>> GetAllMoviesAsync()
         {
-            return await _context.Movies.Include(f => f.Characters).ToListAsync();
+            return await _context.Movies.Include(m => m.Characters).ToListAsync();
         }
 
 
         public async Task<Movie> GetSpecificMovieAsync(int id)
         {
-            return await _context.Movies.Include(f => f.Characters).FirstOrDefaultAsync(f => f.Id == id);
+            return await _context.Movies.Include(m => m.Characters).FirstOrDefaultAsync(m => m.Id == id);
         }
 
         public bool MovieExists(int id)
         {
-            return _context.Movies.Any(e => e.Id == id);
+            return _context.Movies.Any(m => m.Id == id);
         }
 
         public async Task UpdateMovieAsync(Movie movie)

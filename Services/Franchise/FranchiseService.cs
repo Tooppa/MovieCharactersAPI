@@ -21,7 +21,7 @@ namespace MovieCharactersAPI.Services
         }
         public async Task<IEnumerable<Movie>> GetAllMoviesInFranchiseAsync(int id)
         {
-            return await _context.Movies.Include(f => f.Characters).Where(m => m.FranchiseId == id).ToListAsync();
+            return await _context.Movies.Include(m => m.Characters).Where(m => m.FranchiseId == id).ToListAsync();
         }
 
         public async Task DeleteFranchiseAsync(int id)
@@ -37,7 +37,7 @@ namespace MovieCharactersAPI.Services
 
         public bool FranchiseExists(int id)
         {
-            return _context.Franchises.Any(e => e.Id == id);
+            return _context.Franchises.Any(f => f.Id == id);
         }
 
         public async Task<IEnumerable<Franchise>> GetAllFranchisesAsync()
@@ -59,8 +59,8 @@ namespace MovieCharactersAPI.Services
         public async Task UpdateMoviesInFranchiseAsync(int franchiseId, List<int> newMovies)
         {
             Franchise franchiseToUpdateMovies = await _context.Franchises
-                .Include(m => m.Movies)
-                .Where(m => m.Id == franchiseId)
+                .Include(f => f.Movies)
+                .Where(f => f.Id == franchiseId)
                 .FirstAsync();
 
             List<Movie> movies = new();
